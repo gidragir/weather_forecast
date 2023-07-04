@@ -23,6 +23,12 @@ export class AppController {
       const data = await response.json()
 
       const result = {
+        'cloudness': data.fact.cloudness,
+        'condition': data.fact.condition,
+        'feels_like': data.fact.feels_like,
+        'is_thunder': data.fact.is_thunder,
+        'polar': data.fact.polar,
+        'humidity': data.fact.humidity,
         'temp': data.fact.temp
       }
 

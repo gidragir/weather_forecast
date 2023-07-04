@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import WeatherCard from './components/weatherCard'
+import {InfoModel} from './models'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const asd = {
-    temp: 0
-  }
-  const [info, setInfo] = useState(asd)
+  const [info, setInfo] = useState<InfoModel>()
 
   useEffect(() => { 
     fetch('/api/weather?city=Almaty')
@@ -26,7 +25,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>{ info.temp }</h1>
+      <WeatherCard info={info!} />
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
