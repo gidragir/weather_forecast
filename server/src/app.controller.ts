@@ -43,16 +43,16 @@ export class AppController {
         },
         details: [
           {
-            'cloudness': 0.5,
-            'condition': 'cloudy',
-            'feels_like': 28,
-            'daytime': 'd',
-            'temp': 28,
-            'prec_strength': 0.75
+            'cloudness': 0,
+            'condition': 'thunderstorm',
+            'feels_like': 31,
+            'daytime': 'n',
+            'temp': 31,
+            'prec_strength': 0
     
           },
           {
-            'cloudness': 0.5,
+            'cloudness': 1,
             'condition': 'cloudy',
             'feels_like': 28,
             'daytime': 'd',
