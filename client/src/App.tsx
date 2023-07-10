@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import WeatherCard from "./components/weatherCard"
 import { InfoModel } from "./models"
 import "./App.css"

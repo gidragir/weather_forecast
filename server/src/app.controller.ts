@@ -14,7 +14,7 @@ export class AppController {
   @Get('weather')
   async getWeather(@Query('city') city) {
       // const apiKey = 'e1c14a8d-6445-4241-b433-1b4b6acd2642'
-      // const url = `https://api.weather.yandex.ru/v2/forecast?lat=43.26&lon=76.92`
+      // const url = `https://api.weather.yandex.ru/v2/informers?lat=43.26&lon=76.92`
       // const response = await fetch(url, {
       //   headers: {
       //     'X-Yandex-API-Key': apiKey,
@@ -23,15 +23,29 @@ export class AppController {
       // const data = await response.json()
 
       // const result = {
-      //   'cloudness': data.fact.cloudness,
-      //   'condition': data.fact.condition,
-      //   'feels_like': data.fact.feels_like,
-      //   'is_thunder': data.fact.is_thunder,
-      //   'polar': data.fact.polar,
-      //   'humidity': data.fact.humidity,
-      //   'temp': data.fact.temp
+      //   main: {
+      //     'cloudness': data.fact.cloudness,
+      //     'condition': data.fact.condition,
+      //     'feels_like': data.fact.feels_like,
+      //     'daytime': data.fact.daytime,
+      //     'prec_strength': data.fact.prec_strength,
+      //     'temp': data.fact.temp
+      //   },
+      //   details: []
       // }
 
+      // data.forecast.parts.forEach(info => {
+      //   result.details.push(
+      //     {
+      //       'cloudness': info.cloudness,
+      //       'condition': info.condition,
+      //       'feels_like': info.feels_like,
+      //       'daytime': info.daytime,
+      //       'prec_strength': info.prec_strength,
+      //       'temp': info.temp
+      //       }
+      //   )  
+      // })
       const result = {
         main: {
           'cloudness': 0.5,
@@ -50,60 +64,6 @@ export class AppController {
             'temp': 31,
             'prec_strength': 0
     
-          },
-          {
-            'cloudness': 1,
-            'condition': 'cloudy',
-            'feels_like': 28,
-            'daytime': 'd',
-            'temp': 28,
-            'prec_strength': 0.75
-    
-          },
-          {
-            'cloudness': 0.5,
-            'condition': 'cloudy',
-            'feels_like': 28,
-            'daytime': 'd',
-            'temp': 28,
-            'prec_strength': 0.75
-    
-          },
-          {
-            'cloudness': 0.5,
-            'condition': 'cloudy',
-            'feels_like': 28,
-            'daytime': 'd',
-            'temp': 28,
-            'prec_strength': 0.75
-    
-          },
-          {
-            'cloudness': 0.5,
-            'condition': 'cloudy',
-            'feels_like': 28,
-            'daytime': 'd',
-            'temp': 28,
-            'prec_strength': 0.75
-    
-          },
-          {
-            'cloudness': 0.5,
-            'condition': 'cloudy',
-            'feels_like': 28,
-            'daytime': 'd',
-            'temp': 28,
-            'prec_strength': 0.75
-    
-          },
-          {
-            'cloudness': 0.5,
-            'condition': 'cloudy',
-            'feels_like': 28,
-            'daytime': 'd',
-            'temp': 28,
-            'prec_strength': 0.75
-    
           }
         ] 
       }
@@ -111,3 +71,6 @@ export class AppController {
       return result 
     }
 }
+
+// INSERT INTO "WeatherConditions" (name) 
+// VALUES ('clear'), ('cloudy'), ('thunderstorm'), ('showers')

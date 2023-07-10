@@ -11,6 +11,29 @@ datasource db {
 }
 
 model Cities {
-  id Int @id @default(autoincrement())
-  name String  
+  Id Int @id @default(autoincrement())
+  Name String
+  Lat Int
+  Long Int
+  Forecasts Forecasts[]  
+}
+
+model WeatherConditions {
+  Id Int @id @default(autoincrement())
+  Name String
+  Forecasts Forecasts[]
+}
+model Forecasts {
+  Id Int @id @default(autoincrement())
+  Day DateTime
+  Hour Int
+  City Cities @relation(fields: [CityId], references: [Id])
+  CityId Int @unique 
+  Temp Int
+  Feels_like Int
+  Cloudness Int
+  Condition WeatherConditions @relation(fields: [ConditionId], references: [Id])
+  ConditionId Int @unique 
+  Daytime String
+  Prec_strength Int
 }
