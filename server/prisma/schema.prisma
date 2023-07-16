@@ -13,27 +13,31 @@ datasource db {
 model Cities {
   Id Int @id @default(autoincrement())
   Name String
-  Lat Int
-  Long Int
+  Lat Float
+  Long Float
   Forecasts Forecasts[]  
+
+  @@index([Name, Lat, Long])
 }
 
 model WeatherConditions {
   Id Int @id @default(autoincrement())
   Name String
   Forecasts Forecasts[]
+
+  @@index([Name])
 }
 model Forecasts {
   Id Int @id @default(autoincrement())
   Day DateTime
   Hour Int
   City Cities @relation(fields: [CityId], references: [Id])
-  CityId Int @unique 
-  Temp Int
-  Feels_like Int
-  Cloudness Int
+  CityId Int 
+  Temp Float
+  Feels_like Float
+  Cloudness Float
   Condition WeatherConditions @relation(fields: [ConditionId], references: [Id])
-  ConditionId Int @unique 
+  ConditionId Int 
   Daytime String
-  Prec_strength Int
+  Prec_strength Float
 }
