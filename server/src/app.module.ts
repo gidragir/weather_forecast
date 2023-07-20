@@ -9,12 +9,6 @@ import { WeatherConditionsModule } from './weatherconditions/weatherconditions.m
 import { ForecastsModule } from './forecasts/forecasts.module';
 @Module({
   imports: [
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      installSubscriptionHandlers: true,
-      autoSchemaFile: 'schema.graphql',
-      sortSchema: true,
-    }),
     AppModule,
     CitiesModule,
     WeatherConditionsModule,

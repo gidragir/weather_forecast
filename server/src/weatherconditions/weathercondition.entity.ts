@@ -1,8 +1,8 @@
-import { ObjectType, InputType, ArgsType, PartialType, Field, ID } from '@nestjs/graphql'
+import { ObjectType, InputType, ArgsType, PartialType, Field, Int } from '@nestjs/graphql'
 
 @ObjectType()
 export class WeatherCondition {
-  @Field(() => ID)
+  @Field(() => Int)
   Id: number
 
   @Field()

@@ -1,8 +1,8 @@
-import { ObjectType, InputType, ArgsType, PartialType, Field, ID, Float } from '@nestjs/graphql'
+import { ObjectType, InputType, ArgsType, PartialType, Field, Int, Float } from '@nestjs/graphql'
 
 @ObjectType()
 export class City {
-  @Field(() => ID)
+  @Field(() => Int)
   Id: number
 
   @Field()
