@@ -12,20 +12,16 @@ datasource db {
 
 model Cities {
   Id Int @id @default(autoincrement())
-  Name String
+  Name String @unique
   Lat Float
   Long Float
   Forecasts Forecasts[]  
-
-  @@index([Name, Lat, Long])
 }
 
 model WeatherConditions {
   Id Int @id @default(autoincrement())
-  Name String
+  Name String @unique
   Forecasts Forecasts[]
-
-  @@index([Name])
 }
 model Forecasts {
   Id Int @id @default(autoincrement())
