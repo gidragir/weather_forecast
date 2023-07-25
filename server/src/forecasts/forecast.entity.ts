@@ -1,4 +1,6 @@
 import { ObjectType, InputType, ArgsType, PartialType, Field, Float, Int } from '@nestjs/graphql'
+import { City, CityConnect } from '../cities/city.entity'
+import { WeatherCondition, WeatherConditionConnect } from '../weatherconditions/weathercondition.entity'
 
 @ObjectType()
 export class Forecast {
@@ -11,6 +13,8 @@ export class Forecast {
   @Field()
   Hour: number
 
+  City?: City
+
   @Field(() => Int)
   CityId: number
 
@@ -22,6 +26,8 @@ export class Forecast {
 
   @Field(() => Float)
   Cloudness: number
+
+  Condition: WeatherCondition
 
   @Field(() => Int)
   ConditionId: number
@@ -41,8 +47,8 @@ export class CreateForecast {
   @Field()
   Hour: number
   
-  @Field(() => Int)
-  CityId: number
+  @Field(() => CityConnect)
+  City: CityConnect
 
   @Field(() => Float)
   Temp: number
@@ -53,8 +59,8 @@ export class CreateForecast {
   @Field(() => Float)
   Cloudness: number
   
-  @Field(() => Int)
-  ConditionId: number
+  @Field(() => WeatherConditionConnect)
+  Condition: WeatherConditionConnect
 
   @Field() 
   Daytime: string
@@ -64,7 +70,37 @@ export class CreateForecast {
 }
 
 @InputType()
-export class UpdateForecast extends PartialType(Forecast, InputType) {}
+export class UpdateForecast {
+  @Field({nullable: true})
+  Day?: Date
+}
 
 @ArgsType()
-export class ArgsForecast extends PartialType(Forecast, ArgsType) {}
+export class ArgsForecast {
+  @Field(() => Int, {nullable: true})
+  Id?: number
+
+  @Field({nullable: true})
+  Day?: Date
+
+  @Field({nullable: true})
+  Hour?: number
+
+  @Field(() => Float, {nullable: true})
+  Temp?: number
+
+  @Field(() => Float, {nullable: true})
+  Feels_like?: number
+
+  @Field(() => Float, {nullable: true})
+  Cloudness?: number
+
+  @Field(() => Int, {nullable: true})
+  ConditionId?: number
+
+  @Field({nullable: true}) 
+  Daytime?: string
+
+  @Field(() => Float, {nullable: true})
+  Prec_strength?: number
+}

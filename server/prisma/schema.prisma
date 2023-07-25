@@ -10,30 +10,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Cities {
+model City {
   Id Int @id @default(autoincrement())
   Name String @unique
   Lat Float
   Long Float
-  Forecasts Forecasts[]  
+  Forecasts Forecast[]
+
+  @@map("Cities")
 }
 
-model WeatherConditions {
+model WeatherCondition {
   Id Int @id @default(autoincrement())
   Name String @unique
-  Forecasts Forecasts[]
+  Forecasts Forecast[]
+
+  @@map("WeatherConditions")
 }
-model Forecasts {
+model Forecast {
   Id Int @id @default(autoincrement())
   Day DateTime
   Hour Int
-  City Cities @relation(fields: [CityId], references: [Id])
+  City City @relation(fields: [CityId], references: [Id])
   CityId Int 
   Temp Float
   Feels_like Float
   Cloudness Float
-  Condition WeatherConditions @relation(fields: [ConditionId], references: [Id])
+  Condition WeatherCondition @relation(fields: [ConditionId], references: [Id])
   ConditionId Int 
   Daytime String
   Prec_strength Float
+
+  @@map("Forecasts")
 }

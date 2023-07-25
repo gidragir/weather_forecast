@@ -4,17 +4,19 @@ import { AppGateway } from './app/app.gateway';
 import { PrismaService } from './prisma.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { CitiesModule } from './cities/cities.module';
-import { WeatherConditionsModule } from './weatherconditions/weatherconditions.module';
-import { ForecastsModule } from './forecasts/forecasts.module';
+import { join } from 'path'
+import { resolvers } from './index';
+
 @Module({
   imports: [
-    AppModule,
-    CitiesModule,
-    WeatherConditionsModule,
-    ForecastsModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      buildSchemaOptions: { dateScalarMode: 'timestamp' },
+    }),
+    AppModule
   ],
   controllers: [AppController],
-  providers: [PrismaService, AppGateway],
+  providers: resolvers,
 })
 export class AppModule {}
