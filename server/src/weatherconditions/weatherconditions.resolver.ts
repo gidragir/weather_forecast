@@ -1,36 +1,41 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
-import { WeatherCondition, CreateWeatherCondition, UpdateWeatherCondition, ArgsWeatherCondition } from './weathercondition.entity'
+import { WeatherCondition, CreateWeatherCondition, UpdateWeatherCondition } from './weathercondition.entity'
+import { WeatherConditionWhereInput } from '../etc/inputs';
 import { PrismaService } from '../prisma.service'
+import { restructData } from '../misc';
 
 @Resolver(() => WeatherCondition)
 export class WeatherConditionsResolver {
   constructor(private readonly prismaService: PrismaService) {}
 
   @Mutation(() => WeatherCondition)
-  createWeatherCondition(@Args('createWeatherCondition') createWeatherCondition: CreateWeatherCondition) {
-    return this.prismaService.weatherCondition.create({data: createWeatherCondition })
+  async createWeatherCondition(@Args('createWeatherCondition') createWeatherCondition: CreateWeatherCondition): Promise<WeatherCondition> {
+    return this.prismaService.weatherCondition.create({
+      data: createWeatherCondition,
+    });
   }
 
   @Query(() => [WeatherCondition], { name: 'weatherConditions' })
-  findAll() {
-    return this.prismaService.weatherCondition.findMany()
+  async findAll(): Promise<WeatherCondition[]> {
+    return this.prismaService.weatherCondition.findMany();
   }
 
-  // @Query(() => WeatherCondition, { name: 'weatherCondition' })
-  // findOne(@Args() args: ArgsWeatherCondition) {
-  //   return this.prismaService.weatherCondition.findUnique({where: args})
-  // }
+  @Query(() => WeatherCondition, { name: 'weatherCondition' })
+  async findOne(@Args('args') args: WeatherConditionWhereInput): Promise<WeatherCondition> {
+    return this.prismaService.weatherCondition.findFirst({ where: args });
+  }
 
-  // @Mutation(() => WeatherCondition)
-  // updateWeatherCondition(@Args('Id') Id: number, @Args('updateWeatherCondition') updateWeatherCondition: UpdateWeatherCondition) {
-  //   return this.prismaService.weatherCondition.update({
-  //     where: { Id: Id },
-  //     data: updateWeatherCondition
-  //   })
-  // }
+  @Mutation(() => WeatherCondition)
+  async updateWeatherCondition(@Args('updateWeatherCondition') updateWeatherCondition: UpdateWeatherCondition): Promise<WeatherCondition> {
+    return this.prismaService.weatherCondition.update({
+      ...restructData(updateWeatherCondition.where),
+    });
+  }
 
-  // @Mutation(() => WeatherCondition)
-  // removeWeatherCondition(@Args() args: ArgsWeatherCondition) {
-  //   return this.prismaService.weatherCondition.delete({ where: args })
-  // }
+  @Mutation(() => WeatherCondition)
+  async removeWeatherCondition( @Args('args') args: WeatherConditionWhereInput): Promise<WeatherCondition> {
+    return this.prismaService.weatherCondition.delete({
+      where: restructData(args),
+    });
+  }
 }

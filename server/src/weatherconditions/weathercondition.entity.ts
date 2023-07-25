@@ -1,5 +1,13 @@
-import { ObjectType, InputType, ArgsType, PartialType, Field, Int } from '@nestjs/graphql'
+import { ObjectType, InputType, ArgsType, Field, Int } from '@nestjs/graphql'
 import { Forecast } from '../forecasts/forecast.entity'
+import {
+  WeatherConditionWhereInput,
+  WeatherConditionWhereUniqueInput,
+  WeatherConditionUpdateInput,
+} from '../etc/inputs';
+import { WeatherConditionOrderByWithRelationInput } from '../etc/orders';
+import { WeatherConditionScalarFieldEnum } from '../etc/fieldEnums';
+
 
 @ObjectType()
 export class WeatherCondition {
@@ -19,22 +27,54 @@ export class CreateWeatherCondition {
 }
 
 @InputType()
-export class UpdateWeatherCondition extends PartialType(WeatherCondition, InputType) {}
+export class UpdateWeatherCondition {
+  @Field(() => WeatherConditionUpdateInput, {
+    nullable: false,
+  })
+  data!: WeatherConditionUpdateInput;
+
+  @Field(() => WeatherConditionWhereUniqueInput, {
+    nullable: false,
+  })
+  where!: WeatherConditionWhereUniqueInput;
+}
 
 @ArgsType()
-export class ArgsWeatherCondition extends PartialType(WeatherCondition, ArgsType) {}
+export class ArgsWeatherCondition {
+  @Field(() => WeatherConditionWhereInput, {
+    nullable: true,
+  })
+  where?: WeatherConditionWhereInput | undefined;
 
+  @Field(() => [WeatherConditionOrderByWithRelationInput], {
+    nullable: true,
+  })
+  orderBy?: WeatherConditionOrderByWithRelationInput[] | undefined;
 
-@InputType()
-export class WeatherConditionWhereUniqueInpu {
-  @Field(() => Int, { nullable: true })
-  Id?: number | undefined
+  @Field(() => WeatherConditionWhereUniqueInput, {
+    nullable: true,
+  })
+  cursor?: WeatherConditionWhereUniqueInput | undefined;
 
-  @Field({ nullable: true })
-  Name?: string | undefined
+  @Field(() => Int, {
+    nullable: true,
+  })
+  take?: number | undefined;
+
+  @Field(() => Int, {
+    nullable: true,
+  })
+  skip?: number | undefined;
+
+  @Field(() => [WeatherConditionScalarFieldEnum], {
+    nullable: true,
+  })
+  distinct?: Array<'Id' | 'Name' > | undefined;
 }
+
+
 @InputType()
 export class WeatherConditionConnect {
-  @Field(() => WeatherConditionWhereUniqueInpu)
-  connect?: WeatherConditionWhereUniqueInpu | undefined
+  @Field(() => WeatherConditionWhereUniqueInput)
+  connect?: WeatherConditionWhereUniqueInput | undefined
 }

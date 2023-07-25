@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppGateway } from './app/app.gateway';
-import { PrismaService } from './prisma.service';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { Module } from '@nestjs/common'
+import { AppController } from './app.controller'
+import { AppGateway } from './app/app.gateway'
+import { PrismaService } from './prisma.service'
+import { GraphQLModule } from '@nestjs/graphql'
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
-import { resolvers } from './index';
+import { resolvers } from './index'
 
 @Module({
   imports: [

@@ -1,6 +1,13 @@
-import { ObjectType, InputType, ArgsType, PartialType, Field, Float, Int } from '@nestjs/graphql'
+import { ObjectType, InputType, ArgsType, Field, Float, Int } from '@nestjs/graphql'
 import { City, CityConnect } from '../cities/city.entity'
 import { WeatherCondition, WeatherConditionConnect } from '../weatherconditions/weathercondition.entity'
+import {
+  ForecastWhereInput,
+  ForecastWhereUniqueInput,
+  ForecastUpdateInput,
+} from '../etc/inputs';
+import { ForecastOrderByWithRelationInput } from '../etc/orders';
+import { ForecastScalarFieldEnum } from '../etc/fieldEnums';
 
 @ObjectType()
 export class Forecast {
@@ -71,36 +78,59 @@ export class CreateForecast {
 
 @InputType()
 export class UpdateForecast {
-  @Field({nullable: true})
-  Day?: Date
+  @Field(() => ForecastUpdateInput, {
+    nullable: false,
+  })
+  data!: ForecastUpdateInput;
+
+  @Field(() => ForecastWhereUniqueInput, {
+    nullable: false,
+  })
+  where!: ForecastWhereUniqueInput;
 }
 
 @ArgsType()
 export class ArgsForecast {
-  @Field(() => Int, {nullable: true})
-  Id?: number
+  @Field(() => ForecastWhereInput, {
+    nullable: true,
+  })
+  where?: ForecastWhereInput | undefined;
 
-  @Field({nullable: true})
-  Day?: Date
+  @Field(() => [ForecastOrderByWithRelationInput], {
+    nullable: true,
+  })
+  orderBy?: ForecastOrderByWithRelationInput[] | undefined;
 
-  @Field({nullable: true})
-  Hour?: number
+  @Field(() => ForecastWhereUniqueInput, {
+    nullable: true,
+  })
+  cursor?: ForecastWhereUniqueInput | undefined;
 
-  @Field(() => Float, {nullable: true})
-  Temp?: number
+  @Field(() => Int, {
+    nullable: true,
+  })
+  take?: number | undefined;
 
-  @Field(() => Float, {nullable: true})
-  Feels_like?: number
+  @Field(() => Int, {
+    nullable: true,
+  })
+  skip?: number | undefined;
 
-  @Field(() => Float, {nullable: true})
-  Cloudness?: number
-
-  @Field(() => Int, {nullable: true})
-  ConditionId?: number
-
-  @Field({nullable: true}) 
-  Daytime?: string
-
-  @Field(() => Float, {nullable: true})
-  Prec_strength?: number
+  @Field(() => [ForecastScalarFieldEnum], {
+    nullable: true,
+  })
+  distinct?:
+    | Array<
+        | 'Id'
+        | 'Day'
+        | 'Hour'
+        | 'CityId'
+        | 'Temp'
+        | 'Feels_like'
+        | 'Cloudness'
+        | 'ConditionId'
+        | 'Daytime'
+        | 'Prec_strength'
+      >
+    | undefined;
 }

@@ -1,5 +1,12 @@
-import { ObjectType, InputType, ArgsType, PartialType, Field, Int, Float } from '@nestjs/graphql'
+import { ObjectType, InputType, ArgsType, Field, Int, Float } from '@nestjs/graphql'
 import { Forecast } from '../forecasts/forecast.entity'
+import {
+  CityWhereInput,
+  CityWhereUniqueInput,
+  CityUpdateInput,
+} from '../etc/inputs';
+import { CityOrderByWithRelationInput } from '../etc/orders';
+import { CityScalarFieldEnum } from '../etc/fieldEnums';
 
 @ObjectType()
 export class City {
@@ -31,20 +38,52 @@ export class CreateCity {
 }
 
 @InputType()
-export class UpdateCity extends PartialType(City, InputType) {}
+export class UpdateCity {
+  @Field(() => CityUpdateInput, {
+    nullable: false,
+  })
+  data!: CityUpdateInput;
+
+  @Field(() => CityWhereUniqueInput, {
+    nullable: false,
+  })
+  where!: CityWhereUniqueInput;
+}
+
 
 @ArgsType()
-export class ArgsCity extends PartialType(City, ArgsType) {}
+export class ArgsCity {
+  @Field(() => CityWhereInput, {
+    nullable: true,
+  })
+  where?: CityWhereInput | undefined;
 
+  @Field(() => [CityOrderByWithRelationInput], {
+    nullable: true,
+  })
+  orderBy?: CityOrderByWithRelationInput[] | undefined;
 
-@InputType()
-export class CityWhereUniqueInput {
-  @Field(() => Int, { nullable: true })
-  Id?: number | undefined
+  @Field(() => CityWhereUniqueInput, {
+    nullable: true,
+  })
+  cursor?: CityWhereUniqueInput | undefined;
 
-  @Field({ nullable: true })
-  Name?: string | undefined
+  @Field(() => Int, {
+    nullable: true,
+  })
+  take?: number | undefined;
+
+  @Field(() => Int, {
+    nullable: true,
+  })
+  skip?: number | undefined;
+
+  @Field(() => [CityScalarFieldEnum], {
+    nullable: true,
+  })
+  distinct?: Array<'Id' | 'Name' | 'Lat' | 'Long'> | undefined;
 }
+
 @InputType()
 export class CityConnect {
   @Field(() => CityWhereUniqueInput)

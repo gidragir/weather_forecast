@@ -6,6 +6,6 @@ export class AppResolver {
   constructor(private readonly appService: AppService) {}
   @Query(() => String)
   async foo(): Promise<string> {
-    return '';
+    return ''
   }
 }
