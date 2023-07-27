@@ -1,0 +1,14 @@
+export { AggregateForecastArgs } from "./AggregateForecastArgs";
+export { CreateManyForecastArgs } from "./CreateManyForecastArgs";
+export { CreateOneForecastArgs } from "./CreateOneForecastArgs";
+export { DeleteManyForecastArgs } from "./DeleteManyForecastArgs";
+export { DeleteOneForecastArgs } from "./DeleteOneForecastArgs";
+export { FindFirstForecastArgs } from "./FindFirstForecastArgs";
+export { FindFirstForecastOrThrowArgs } from "./FindFirstForecastOrThrowArgs";
+export { FindManyForecastArgs } from "./FindManyForecastArgs";
+export { FindUniqueForecastArgs } from "./FindUniqueForecastArgs";
+export { FindUniqueForecastOrThrowArgs } from "./FindUniqueForecastOrThrowArgs";
+export { GroupByForecastArgs } from "./GroupByForecastArgs";
+export { UpdateManyForecastArgs } from "./UpdateManyForecastArgs";
+export { UpdateOneForecastArgs } from "./UpdateOneForecastArgs";
+export { UpsertOneForecastArgs } from "./UpsertOneForecastArgs";

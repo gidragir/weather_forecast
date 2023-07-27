@@ -1,36 +1,46 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
-import { CitiesService } from './cities.service'
-import { City, CreateCity, UpdateCity, ArgsCity } from './city.entity'
+import { Resolver, Query, Mutation, Arg } from 'type-graphql'
+import * as generated from '../../prisma/generated/type-graphql'
+import { PrismaService } from '../prisma.service'
 
-@Resolver(() => City)
+@Resolver(() => generated.City)
 export class CitiesResolver {
-  constructor(private readonly citiesService: CitiesService) {}
+  constructor(private readonly prismaService: PrismaService) { }
 
-  @Mutation(() => City)
-  createCity(@Args('createCity') createCity: CreateCity) {
-    return this.citiesService.create(createCity);
+  @Mutation(() => generated.City)
+  createCity(@Arg('createCity') createCity: generated.CityCreateInput) {
+    return this.prismaService.city.create({data: createCity });
   }
 
-  @Query(() => [City], { name: 'cities' })
-  findAll() {
-    return this.citiesService.findAll();
+  @Query(() => [generated.City], { name: 'cities' })
+  findAll(
+    @Arg("where") where: generated.CityWhereInput, 
+    @Arg("orderBy", { nullable: true }) orderBy?: generated.CityOrderByWithAggregationInput) {
+    const args = {
+      where: where,
+      orderBy: orderBy
+    }
+    
+    return this.prismaService.city.findMany({...args});
   }
 
-  @Query(() => City, { name: 'city' })
-  findOne(@Args() args: ArgsCity) {
-    return this.citiesService.findOne(args);
+  @Query(() => generated.City, { name: 'city' })
+  findOne(@Arg("where") where: generated.CityWhereInput ) {
+    return this.prismaService.city.findFirst({where: where})
   }
 
-  @Mutation(() => City)
+  @Mutation(() => generated.City)
   updateCity(
-    @Args('Id') Id: number,
-    @Args('updateCity') updateCity: UpdateCity,
+    @Arg('Id') Id: number,
+    @Arg('updateCity') updateCity: generated.CityUpdateInput,
   ) {
-    return this.citiesService.update(Id, updateCity);
+    return this.prismaService.city.update({
+      where: { Id: Id },
+      data: updateCity,
+    });
   }
 
-  @Mutation(() => City)
-  removeCity(@Args() args: ArgsCity) {
-    return this.citiesService.remove(args);
+  @Mutation(() => generated.City)
+  removeCity(@Arg("Id") Id: number) {
+    return this.prismaService.city.delete({ where: { Id: Id }});
   }
 }
