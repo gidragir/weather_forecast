@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, FieldResolver, Root } from 'type-graphql';
 import * as generated from '../../prisma/generated/type-graphql';
 import { PrismaService } from '../prisma.service';
 
@@ -16,7 +16,14 @@ export class ForecastsResolver {
 
   @Query(() => [generated.Forecast], { name: 'forecasts' })
   findAll() {
-    return this.prismaService.forecast.findMany();
+    return this.prismaService.forecast.findMany({
+
+    });
+  }
+
+  @FieldResolver(() => generated.City, { nullable: true })
+  City(@Root() forecast: generated.Forecast) {
+    return this.prismaService.forecast.findUnique({where:{ Id: forecast.Id}}).City()
   }
 
   @Query(() => generated.Forecast, { name: 'forecast' })

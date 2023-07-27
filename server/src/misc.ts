@@ -1,16 +1,16 @@
 export function restuctData (rawData: any) : any{
-  const object = {}
-  const properties = Object.getOwnPropertyNames(rawData)
-  properties.forEach((property) => {
-    if (property.includes('Id') && property != 'Id') {
-      object[property.replace('Id', '')] = {
-        connect: {
-          Id: rawData[property],
-        },
-      }
-    } else {
-      object[property] = rawData[property] 
-    }
-  })
-  return object
+  return rawData
+}
+
+export function assembleStruct(
+  data?: any,
+  where?: any,
+  orderBy?: any) : any{
+  const result = {
+    data: data,
+    where: where,
+    orderBy: orderBy
+  }
+
+  return result
 }
