@@ -13,6 +13,7 @@ import {
   IntFieldUpdateOperationsInput,
   StringFieldUpdateOperationsInput,
 } from './fieldEnums';
+import { SortOrder } from '../etc/orders'
 import { CreateCity, UpdateCity } from '../cities/city.entity';
 import { CreateWeatherCondition, UpdateWeatherCondition } from '../weatherconditions/weathercondition.entity';
 
@@ -209,7 +210,6 @@ export class WeatherConditionWhereUniqueInput {
 }
 //#endregion
 
-
 //#region CreateOrConnect
 @GraphQl.InputType('WeatherConditionCreateOrConnectWithoutForecastsInput', {
   isAbstract: true,
@@ -387,4 +387,448 @@ export class WeatherConditionUpdateInput {
   })
   Name?: StringFieldUpdateOperationsInput | undefined;
 }
+//#endregion
+
+//#region OrderByAggregateInputs
+//#region City
+@GraphQl.InputType("CityCountOrderByAggregateInput", {
+  isAbstract: true
+})
+export class CityCountOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Name?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Lat?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Long?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("CityAvgOrderByAggregateInput", {
+  isAbstract: true
+})
+export class CityAvgOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Lat?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Long?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("CityMaxOrderByAggregateInput", {
+  isAbstract: true
+})
+export class CityMaxOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Name?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Lat?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Long?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("CityMinOrderByAggregateInput", {
+  isAbstract: true
+})
+export class CityMinOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Name?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Lat?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Long?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("CitySumOrderByAggregateInput", {
+  isAbstract: true
+})
+export class CitySumOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Lat?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Long?: "asc" | "desc" | undefined;
+}
+
+//#endregion
+
+//#region WeatherCondition
+@GraphQl.InputType("WeatherConditionAvgOrderByAggregateInput", {
+  isAbstract: true
+})
+export class WeatherConditionAvgOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("WeatherConditionCountOrderByAggregateInput", {
+  isAbstract: true
+})
+export class WeatherConditionCountOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Name?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("WeatherConditionMaxOrderByAggregateInput", {
+  isAbstract: true
+})
+export class WeatherConditionMaxOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Name?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("WeatherConditionMinOrderByAggregateInput", {
+  isAbstract: true
+})
+export class WeatherConditionMinOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Name?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("WeatherConditionSumOrderByAggregateInput", {
+  isAbstract: true
+})
+export class WeatherConditionSumOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+}
+//#endregion
+
+//#region Forecast
+@GraphQl.InputType("ForecastAvgOrderByAggregateInput", {
+  isAbstract: true
+})
+export class ForecastAvgOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Hour?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  CityId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Temp?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Feels_like?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Cloudness?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  ConditionId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Prec_strength?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("ForecastCountOrderByAggregateInput", {
+  isAbstract: true
+})
+export class ForecastCountOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Day?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Hour?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  CityId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Temp?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Feels_like?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Cloudness?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  ConditionId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Daytime?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Prec_strength?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("ForecastMaxOrderByAggregateInput", {
+  isAbstract: true
+})
+export class ForecastMaxOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Day?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Hour?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  CityId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Temp?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Feels_like?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Cloudness?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  ConditionId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Daytime?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Prec_strength?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("ForecastMinOrderByAggregateInput", {
+  isAbstract: true
+})
+export class ForecastMinOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Day?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Hour?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  CityId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Temp?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Feels_like?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Cloudness?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  ConditionId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Daytime?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Prec_strength?: "asc" | "desc" | undefined;
+}
+
+@GraphQl.InputType("ForecastSumOrderByAggregateInput", {
+  isAbstract: true
+})
+export class ForecastSumOrderByAggregateInput {
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Id?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Hour?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  CityId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Temp?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Feels_like?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Cloudness?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  ConditionId?: "asc" | "desc" | undefined;
+
+  @GraphQl.Field(() => SortOrder, {
+    nullable: true
+  })
+  Prec_strength?: "asc" | "desc" | undefined;
+}
+//#endregion
 //#endregion

@@ -1,41 +1,41 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
-import { WeatherCondition, CreateWeatherCondition, UpdateWeatherCondition } from './weathercondition.entity'
-import { WeatherConditionWhereInput } from '../etc/inputs';
+import { WeatherCondition, CreateWeatherCondition } from './weathercondition.entity'
+import { WeatherConditionWhereInput, WeatherConditionUpdateInput, WeatherConditionWhereUniqueInput } from '../etc/inputs';
+import { WeatherConditionOrderByWithAggregationInput } from '../etc/orders'
 import { PrismaService } from '../prisma.service'
-import { restructData } from '../misc';
+import { assembleStruct } from '../misc';
 
 @Resolver(() => WeatherCondition)
 export class WeatherConditionsResolver {
   constructor(private readonly prismaService: PrismaService) {}
 
   @Mutation(() => WeatherCondition)
-  async createWeatherCondition(@Args('createWeatherCondition') createWeatherCondition: CreateWeatherCondition): Promise<WeatherCondition> {
-    return this.prismaService.weatherCondition.create({
-      data: createWeatherCondition,
-    });
+  async createWeatherCondition(@Args('data') data: CreateWeatherCondition): Promise<WeatherCondition> {
+    const args = assembleStruct(data, undefined, undefined)
+    return this.prismaService.weatherCondition.create({ ...args });
   }
 
   @Query(() => [WeatherCondition], { name: 'weatherConditions' })
-  async findAll(): Promise<WeatherCondition[]> {
-    return this.prismaService.weatherCondition.findMany();
+  async findAll(@Args("orderBy", { nullable: true }) orderBy: WeatherConditionOrderByWithAggregationInput): Promise<WeatherCondition[]> {
+    const args = assembleStruct(undefined, undefined, orderBy)
+    return this.prismaService.weatherCondition.findMany({ ...args });
   }
 
   @Query(() => WeatherCondition, { name: 'weatherCondition' })
-  async findOne(@Args('args') args: WeatherConditionWhereInput): Promise<WeatherCondition> {
-    return this.prismaService.weatherCondition.findFirst({ where: args });
+  async findWithCondition(@Args('where') where: WeatherConditionWhereInput, @Args("orderBy", { nullable: true }) orderBy: WeatherConditionOrderByWithAggregationInput): Promise<WeatherCondition> {
+    const args = assembleStruct(undefined, where, orderBy)
+    return this.prismaService.weatherCondition.findFirst({ ...args });
   }
 
   @Mutation(() => WeatherCondition)
-  async updateWeatherCondition(@Args('updateWeatherCondition') updateWeatherCondition: UpdateWeatherCondition): Promise<WeatherCondition> {
-    return this.prismaService.weatherCondition.update({
-      ...restructData(updateWeatherCondition.where),
-    });
+  async updateWeatherCondition(@Args('data') data: WeatherConditionUpdateInput, @Args('where') where: WeatherConditionWhereUniqueInput): Promise<WeatherCondition> {
+    const args = assembleStruct(data, where, undefined)
+    return this.prismaService.weatherCondition.update({ ...args });
   }
 
   @Mutation(() => WeatherCondition)
-  async removeWeatherCondition( @Args('args') args: WeatherConditionWhereInput): Promise<WeatherCondition> {
-    return this.prismaService.weatherCondition.delete({
-      where: restructData(args),
-    });
+  async removeWeatherCondition( @Args('where') where: WeatherConditionWhereUniqueInput): Promise<WeatherCondition> {
+    const args = assembleStruct(undefined, where, undefined)
+    return this.prismaService.weatherCondition.delete({ ...args });
   }
 }

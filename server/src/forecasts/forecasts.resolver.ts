@@ -1,41 +1,41 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
-import { Forecast, CreateForecast, UpdateForecast } from './forecast.entity'
-import { ForecastWhereInput } from '../etc/inputs'
+import { Forecast, CreateForecast } from './forecast.entity'
+import { ForecastWhereInput, ForecastUpdateInput, ForecastWhereUniqueInput } from '../etc/inputs'
+import { ForecastOrderByWithAggregationInput } from '../etc/orders'
 import { PrismaService } from '../prisma.service'
-import { restructData } from '../misc'
+import { assembleStruct } from '../misc'
 
 @Resolver(() => Forecast)
 export class ForecastsResolver {
   constructor(private readonly prismaService: PrismaService) {}
 
   @Mutation(() => Forecast)
-  async createForecast(@Args('createForecast') createForecast: CreateForecast): Promise<any> {
-    return this.prismaService.forecast.create({
-      data: restructData(createForecast),
-    });
+  async createForecast(@Args('data') data: CreateForecast): Promise<any> {
+    const args = assembleStruct(data, undefined, undefined)
+    return this.prismaService.forecast.create({ ...args });
   }
 
   @Query(() => [Forecast], { name: 'forecasts' })
-  async findAll(): Promise<any[]> {
-    return this.prismaService.forecast.findMany();
+  async findAll(@Args("orderBy", { nullable: true }) orderBy: ForecastOrderByWithAggregationInput): Promise<any[]> {
+    const args = assembleStruct(undefined, undefined, orderBy)
+    return this.prismaService.forecast.findMany({ ...args });
   }
 
   @Query(() => Forecast, { name: 'forecast' })
-  async findOne(@Args('args') args: ForecastWhereInput): Promise<any> {
-    return this.prismaService.forecast.findFirst({
-      where: args,
-    });
+  async findWithCondition(@Args('where') where: ForecastWhereInput, @Args("orderBy", { nullable: true }) orderBy: ForecastOrderByWithAggregationInput): Promise<any> {
+    const args = assembleStruct(undefined, where, orderBy)
+    return this.prismaService.forecast.findFirst({ ...args });
   }
 
   @Mutation(() => Forecast)
-  async updateForecast(@Args('updateForecast') updateForecast: UpdateForecast): Promise<any> {
-    return this.prismaService.forecast.update({
-      ...restructData(updateForecast.data)
-    });
+  async updateForecast(@Args('data') data: ForecastUpdateInput, @Args('where') where: ForecastWhereUniqueInput): Promise<any> {
+    const args = assembleStruct(data, where, undefined)
+    return this.prismaService.forecast.update({ ...args });
   }
 
   @Mutation(() => Forecast)
-  async removeForecast(@Args('args') args: ForecastWhereInput): Promise<any> {
-    return this.prismaService.forecast.delete({ where: restructData(args) });
+  async removeForecast(@Args('where') where: ForecastWhereUniqueInput): Promise<any> {
+    const args = assembleStruct(undefined, where, undefined)
+    return this.prismaService.forecast.delete({ ...args });
   }
 }
