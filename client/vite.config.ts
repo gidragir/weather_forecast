@@ -1,13 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 export default defineConfig({
-//   // ...vite configures
   server: {
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
-                changeOrigin: true,
-      }
+        changeOrigin: true,
+      },
+      '/graphql': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+      },
     },
     port: 5197
   },
@@ -22,6 +26,8 @@ export default defineConfig({
         'class-transformer',
         'class-validator',
         'fastify-swagger',
+        '@apollo/client/core',
+        '@apollo/client/cache'
       ],
   },
 });

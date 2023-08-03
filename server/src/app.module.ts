@@ -10,9 +10,8 @@ import { resolvers } from './index'
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      buildSchemaOptions: { dateScalarMode: 'timestamp' },
+      buildSchemaOptions: { dateScalarMode: 'timestamp' }
     }),
-    AppModule
   ],
   controllers: [AppController],
   providers: resolvers,

@@ -11,6 +11,10 @@ async function bootstrap() {
   )
   app.enableShutdownHooks()
 
+  app.enableCors({
+    credentials: true,
+    origin: 'http://localhost',
+  })
   app.setGlobalPrefix('api')
   await app.listen(3000)
 }

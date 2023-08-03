@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import WeatherCard from "./components/weatherCard"
 import { InfoModel } from "./models"
 import "./App.css"
+import { useQuery, gql } from '@apollo/client'
 
 function App() {
   const [mainInfo, setMainInfo] = useState<InfoModel>(new InfoModel())
@@ -23,6 +24,15 @@ function App() {
     fetchData()
     return () => abortController.abort()
   }, [])
+
+  const { loading, error, data } = useQuery(
+    gql`
+      {cities(orderBy:{}){Name}}
+      `
+  )
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error : {error.message}</p>;
 
   return (
     <>
