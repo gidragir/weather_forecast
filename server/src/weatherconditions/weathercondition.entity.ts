@@ -4,9 +4,9 @@ import {
   WeatherConditionWhereInput,
   WeatherConditionWhereUniqueInput,
   WeatherConditionUpdateInput,
-} from '../etc/inputs';
-import { WeatherConditionOrderByWithRelationInput } from '../etc/orders';
-import { WeatherConditionScalarFieldEnum } from '../etc/fieldEnums';
+} from '../etc/inputs'
+import { WeatherConditionOrderByWithRelationInput } from '../etc/orders'
+import { WeatherConditionScalarFieldEnum } from '../etc/fieldEnums'
 
 
 @ObjectType()
@@ -31,12 +31,12 @@ export class UpdateWeatherCondition {
   @Field(() => WeatherConditionUpdateInput, {
     nullable: false,
   })
-  data!: WeatherConditionUpdateInput;
+  data!: WeatherConditionUpdateInput
 
   @Field(() => WeatherConditionWhereUniqueInput, {
     nullable: false,
   })
-  where!: WeatherConditionWhereUniqueInput;
+  where!: WeatherConditionWhereUniqueInput
 }
 
 @ArgsType()
@@ -44,32 +44,32 @@ export class ArgsWeatherCondition {
   @Field(() => WeatherConditionWhereInput, {
     nullable: true,
   })
-  where?: WeatherConditionWhereInput | undefined;
+  where?: WeatherConditionWhereInput | undefined
 
   @Field(() => [WeatherConditionOrderByWithRelationInput], {
     nullable: true,
   })
-  orderBy?: WeatherConditionOrderByWithRelationInput[] | undefined;
+  orderBy?: WeatherConditionOrderByWithRelationInput[] | undefined
 
   @Field(() => WeatherConditionWhereUniqueInput, {
     nullable: true,
   })
-  cursor?: WeatherConditionWhereUniqueInput | undefined;
+  cursor?: WeatherConditionWhereUniqueInput | undefined
 
   @Field(() => Int, {
     nullable: true,
   })
-  take?: number | undefined;
+  take?: number | undefined
 
   @Field(() => Int, {
     nullable: true,
   })
-  skip?: number | undefined;
+  skip?: number | undefined
 
   @Field(() => [WeatherConditionScalarFieldEnum], {
     nullable: true,
   })
-  distinct?: Array<'Id' | 'Name' > | undefined;
+  distinct?: Array<'Id' | 'Name' > | undefined
 }
 
 

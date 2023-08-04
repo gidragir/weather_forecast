@@ -5,9 +5,12 @@ import {
   ForecastWhereInput,
   ForecastWhereUniqueInput,
   ForecastUpdateInput,
-} from '../etc/inputs';
-import { ForecastOrderByWithRelationInput } from '../etc/orders';
-import { ForecastScalarFieldEnum } from '../etc/fieldEnums';
+} from '../etc/inputs'
+import { ForecastOrderByWithRelationInput } from '../etc/orders'
+import { ForecastScalarFieldEnum } from '../etc/fieldEnums'
+
+export * from '../cities/city.entity'
+export * from '../weatherconditions/weathercondition.entity'
 
 @ObjectType()
 export class Forecast {
@@ -81,12 +84,12 @@ export class UpdateForecast {
   @Field(() => ForecastUpdateInput, {
     nullable: false,
   })
-  data!: ForecastUpdateInput;
+  data!: ForecastUpdateInput
 
   @Field(() => ForecastWhereUniqueInput, {
     nullable: false,
   })
-  where!: ForecastWhereUniqueInput;
+  where!: ForecastWhereUniqueInput
 }
 
 @ArgsType()
@@ -94,27 +97,27 @@ export class ArgsForecast {
   @Field(() => ForecastWhereInput, {
     nullable: true,
   })
-  where?: ForecastWhereInput | undefined;
+  where?: ForecastWhereInput | undefined
 
   @Field(() => [ForecastOrderByWithRelationInput], {
     nullable: true,
   })
-  orderBy?: ForecastOrderByWithRelationInput[] | undefined;
+  orderBy?: ForecastOrderByWithRelationInput[] | undefined
 
   @Field(() => ForecastWhereUniqueInput, {
     nullable: true,
   })
-  cursor?: ForecastWhereUniqueInput | undefined;
+  cursor?: ForecastWhereUniqueInput | undefined
 
   @Field(() => Int, {
     nullable: true,
   })
-  take?: number | undefined;
+  take?: number | undefined
 
   @Field(() => Int, {
     nullable: true,
   })
-  skip?: number | undefined;
+  skip?: number | undefined
 
   @Field(() => [ForecastScalarFieldEnum], {
     nullable: true,
@@ -132,5 +135,5 @@ export class ArgsForecast {
         | 'Daytime'
         | 'Prec_strength'
       >
-    | undefined;
+    | undefined
 }
