@@ -17,7 +17,7 @@ export class Forecast {
   @Field(() => Int)
   Id: number
 
-  @Field()
+  @Field(() => Date)
   Day: Date
 
   @Field()
@@ -51,7 +51,7 @@ export class Forecast {
 
 @InputType()
 export class CreateForecast {
-  @Field()
+  @Field(() => Date)
   Day: Date
 
   @Field()

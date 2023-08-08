@@ -122,30 +122,30 @@ export class WeatherCard extends Component<{info: InfoModel}> {
       <div className="card">
         <div className="flex space-x-2">
           <img
-            src={this.getDaytime(this.props.info.daytime)}
+            src={this.getDaytime(this.props.info.Daytime)}
             className="animate-pulse-slow h-28 w-28"
           />
 
           <div className="flex flex-col place-content-around">
             <h4 className="text-3xl font-bold">
-              Температура {this.props.info.temp}
+              Температура {this.props.info.Temp}
             </h4>
-            <h4 className="text-2xl">Ощущается как {this.props.info.feels_like}</h4>
+            <h4 className="text-2xl">Ощущается как {this.props.info.Feels_like}</h4>
           </div>
         </div>
         <div className="flex place-content-evenly">
           <img
-            src={this.getCloudness(this.props.info.cloudness)}
+            src={this.getCloudness(this.props.info.Cloudness)}
             className="animate-bounce-slow h-20 w-20"
           />
 
           <img
-            src={this.getPrec(this.props.info.prec_strength)}
+            src={this.getPrec(this.props.info.Prec_strength)}
             className="animate-bounce-slow h-20 w-20"
           />
 
           <img
-            src={this.getCondition(this.props.info.condition)}
+            src={this.getCondition(this.props.info.Condition)}
             className="animate-bounce-slow h-20 w-20"
           />
         </div>

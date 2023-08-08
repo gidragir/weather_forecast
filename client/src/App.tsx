@@ -1,45 +1,48 @@
-import { useState, useEffect } from "react"
+import {useState, useEffect} from "react"
 import WeatherCard from "./components/weatherCard"
-import { InfoModel } from "./models"
+import {InfoModel} from "./models"
 import "./App.css"
-import { useQuery, gql } from '@apollo/client'
+import {useQuery, gql} from "@apollo/client"
 
 function App() {
-  const [mainInfo, setMainInfo] = useState<InfoModel>(new InfoModel())
-  const [detailsInfo, setDetails] = useState<InfoModel[]>([])
-
-  useEffect(() => {
-    const abortController = new AbortController()
-    const fetchData = async () => {
-      fetch("/api/weather?city=Almaty", {
-        signal: abortController.signal,
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          setMainInfo(json.main)
-          setDetails(json.details)
-        })
+  const ForecastFields = gql`
+    fragment ForecastFields on Forecast {
+      Day
+      Temp
+      Feels_like
+      Prec_strength
+      Daytime
+      Cloudness
+      Condition {
+        Name
+      }
     }
-
-    fetchData()
-    return () => abortController.abort()
-  }, [])
-
-  const { loading, error, data } = useQuery(
+  `
+  const {loading, error, data} = useQuery(
     gql`
-      {cities(orderBy:{}){Name}}
-      `
+      ${ForecastFields}
+      {
+        forecast(where: {Day: {equals: "2023-08-08"}}) {
+          ...ForecastFields
+          Details(where: {Day: {lt: "2023-08-08"}}, orderBy: {Day: desc}) {
+            ...ForecastFields
+          }
+        }
+      }
+    `
   )
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
+  const details: InfoModel[] = data.forecast.Details as InfoModel[]
+
   return (
     <>
-      <WeatherCard info={mainInfo} />
+      <WeatherCard info={data.forecast} />
       <br />
       <div className="p-5 flex flex-row flex-wrap justify-between">
-        {detailsInfo.map((info, index) => {
+        {details.map((info, index) => {
           return <WeatherCard key={index} info={info} />
         })}
       </div>

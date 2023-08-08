@@ -33,6 +33,14 @@ export class ForecastsResolver {
     return this.prismaService.forecast.update({ ...args })
   }
 
+  @Mutation(() => [Forecast])
+  async updateManyForecast(@Args('data') data: ForecastUpdateInput, @Args('where') where: ForecastWhereUniqueInput): Promise<any> {
+    const args = assembleStruct(data, where, undefined)
+    return this.prismaService.forecast.update({ ...args })
+  }
+
+
+
   @Mutation(() => Forecast)
   async removeForecast(@Args('where') where: ForecastWhereUniqueInput): Promise<any> {
     const args = assembleStruct(undefined, where, undefined)
@@ -49,19 +57,13 @@ export class ForecastsResolver {
     return this.prismaService.forecast.findUnique({where:{ Id: forecast.Id}}).Condition()
   }
   
-  @ResolveField(() => Forecast, { nullable: true })
-  Main(@Root() forecast: Forecast,
-  @Args('where') where: ForecastWhereInput) {
-    const args = assembleStruct(undefined, where, undefined)
-    return this.prismaService.forecast.findFirst({ ...args })
-  }
-  
-  @ResolveField(() => Forecast, { nullable: true })
-  Details(@Root() forecast: Forecast,
-  @Args('where') where: ForecastWhereInput, @Args("orderBy", { nullable: true }) orderBy: ForecastOrderByWithAggregationInput) {
+
+  @ResolveField(() => [Forecast], { nullable: true })
+  async Details(
+    @Args('where') where: ForecastWhereInput, 
+    @Args("orderBy", { nullable: true }) orderBy: ForecastOrderByWithAggregationInput
+  ): Promise<any[]> {
     const args = assembleStruct(undefined, where, orderBy)
     return this.prismaService.forecast.findMany({ ...args })
   }
-  
-  
 }

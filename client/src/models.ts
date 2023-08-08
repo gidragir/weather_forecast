@@ -1,24 +1,24 @@
 export class InfoModel {
-  "cloudness": number
-  "condition": string
-  "feels_like": number
-  "daytime": string
-  "temp": number
-  "prec_strength": number
+  "Cloudness": number
+  "Condition": string
+  "Feels_like": number
+  "Daytime": string
+  "Temp": number
+  "Prec_strength": number
 
 
-  constructor(cloudness = 0, 
-    condition = '', 
-    feels_like = 0, 
-    daytime = '', 
-    temp = 0,
-    prec_strength = 0) {
+  constructor(Cloudness = 0, 
+    Condition = '', 
+    Feels_like = 0, 
+    Daytime = '', 
+    Temp = 0,
+    Prec_strength = 0) {
     
-    this.cloudness = cloudness
-    this.condition = condition
-    this.feels_like = feels_like
-    this.daytime = daytime
-    this.temp = temp
-    this.prec_strength = prec_strength
+    this.Cloudness = Cloudness
+    this.Condition = Condition
+    this.Feels_like = Feels_like
+    this.Daytime = Daytime
+    this.Temp = Temp
+    this.Prec_strength = Prec_strength
   }
 }
