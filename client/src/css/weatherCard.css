@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  h4 {
+  h4, h5 {
     @apply font-['segoe_print'] text-cyan-500; 
   }
 

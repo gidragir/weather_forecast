@@ -102,11 +102,11 @@ export class WeatherCard extends Component<{info: InfoModel}> {
   getDaytime(daytime: string): string {
     let daytimeSrc: string
     switch (daytime) {
-      case 'd':
+      case "d":
         daytimeSrc = sunny
         break
 
-      case 'n':
+      case "n":
         daytimeSrc = moon
         break
 
@@ -130,24 +130,35 @@ export class WeatherCard extends Component<{info: InfoModel}> {
             <h4 className="text-3xl font-bold">
               Температура {this.props.info.Temp}
             </h4>
-            <h4 className="text-2xl">Ощущается как {this.props.info.Feels_like}</h4>
+            <h4 className="text-2xl">
+              Ощущается как {this.props.info.Feels_like}
+            </h4>
           </div>
         </div>
         <div className="flex place-content-evenly">
-          <img
-            src={this.getCloudness(this.props.info.Cloudness)}
-            className="animate-bounce-slow h-20 w-20"
-          />
+          <div className="flex items-center flex-col">
+            <img
+              src={this.getCloudness(this.props.info.Cloudness)}
+              className="animate-bounce-slow h-20 w-20"
+            />
+            <h5 className="text-lg font-bold">Облачность</h5>
+          </div>
 
-          <img
-            src={this.getPrec(this.props.info.Prec_strength)}
-            className="animate-bounce-slow h-20 w-20"
-          />
+          <div className="flex items-center flex-col">
+            <img
+              src={this.getPrec(this.props.info.Prec_strength)}
+              className="animate-bounce-slow h-20 w-20"
+            />
+            <h5 className="text-lg font-bold">Дождливость</h5>
+          </div>
 
-          <img
-            src={this.getCondition(this.props.info.Condition)}
-            className="animate-bounce-slow h-20 w-20"
-          />
+          <div className="flex items-center flex-col">
+            <img
+              src={this.getCondition(this.props.info.Condition)}
+              className="animate-bounce-slow h-20 w-20"
+            />
+            <h5 className="text-lg font-bold">Погодные условия</h5>
+          </div>
         </div>
       </div>
     )
