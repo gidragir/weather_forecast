@@ -22,9 +22,9 @@ function App() {
     gql`
       ${ForecastFields}
       {
-        forecast(where: {Day: {equals: "2023-08-08"}}) {
+        forecast(where: {Day: {equals: "2023-08-01"}}) {
           ...ForecastFields
-          Details(where: {Day: {lt: "2023-08-08"}}, orderBy: {Day: desc}) {
+          Details(where: {Day: {gt: "2023-08-01"}}, orderBy: {Day: asc}) {
             ...ForecastFields
           }
         }

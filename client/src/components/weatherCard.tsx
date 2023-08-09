@@ -1,17 +1,28 @@
-import React, {Component} from "react"
-import {InfoModel} from "../models"
+import React, { Component } from "react"
+import { InfoModel } from "../models"
 import "../css/weatherCard.css"
-import sunny from "../assets/sunny.svg"
-import moon from "../assets/moon.svg"
-import cloudy_little from "../assets/cloudy_little.svg"
-import cloudy_small from "../assets/cloudy_small.svg"
-import cloudy_high from "../assets/cloudy_high.svg"
-import thunder from "../assets/thunder.svg"
-import rain_little from "../assets/rain_little.svg"
-import rain_small from "../assets/rain_small.svg"
-import rain_medium from "../assets/rain_medium.svg"
-import rain_high from "../assets/rain_high.svg"
+import {
+  sunny,
+  moon,
+  cloudy_little,
+  cloudy_small,
+  cloudy_high,
+  thunder,
+  rain_little,
+  rain_small,
+  rain_medium,
+  rain_high
+} from "../assets/weather_condition_icons" 
 
+let days = [
+  "Воскресенье",
+  "Понедельник",
+  "Вторник",
+  "Среда",
+  "Четверг",
+  "Пятница",
+  "Суббота",
+]
 export class WeatherCard extends Component<{info: InfoModel}> {
   getCondition(condition: string): string {
     let weatherSrc: string
@@ -118,8 +129,11 @@ export class WeatherCard extends Component<{info: InfoModel}> {
   }
 
   render() {
+    let day: Date = new Date(this.props.info.Day)
+
     return (
       <div className="card">
+        <h4 className="text-2xl">{days[day.getDay()]}</h4>
         <div className="flex space-x-2">
           <img
             src={this.getDaytime(this.props.info.Daytime)}
@@ -136,7 +150,7 @@ export class WeatherCard extends Component<{info: InfoModel}> {
           </div>
         </div>
         <div className="flex place-content-evenly">
-          <div className="flex items-center flex-col">
+          <div className="card_element">
             <img
               src={this.getCloudness(this.props.info.Cloudness)}
               className="animate-bounce-slow h-20 w-20"
@@ -144,7 +158,7 @@ export class WeatherCard extends Component<{info: InfoModel}> {
             <h5 className="text-lg font-bold">Облачность</h5>
           </div>
 
-          <div className="flex items-center flex-col">
+          <div className="card_element">
             <img
               src={this.getPrec(this.props.info.Prec_strength)}
               className="animate-bounce-slow h-20 w-20"
@@ -152,7 +166,7 @@ export class WeatherCard extends Component<{info: InfoModel}> {
             <h5 className="text-lg font-bold">Дождливость</h5>
           </div>
 
-          <div className="flex items-center flex-col">
+          <div className="card_element">
             <img
               src={this.getCondition(this.props.info.Condition)}
               className="animate-bounce-slow h-20 w-20"

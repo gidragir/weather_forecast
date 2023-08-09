@@ -15,6 +15,7 @@
     "dev:client": "yarn --cwd client dev",
     "dev:server": "yarn --cwd server start:dev",
     "dev": "concurrently --kill-others  \"yarn dev:server\" \"yarn dev:client\"",
-    "migrate": "yarn --cwd server prisma migrate dev --name $name"
+    "migrate": "yarn --cwd server prisma migrate dev --name $name",
+    "push": "yarn --cwd server prisma db push"
   }
 }
