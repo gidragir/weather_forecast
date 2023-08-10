@@ -40,7 +40,7 @@ function App() {
   return (
     <>
       <WeatherCard info={data.forecast} />
-      <br />
+      <br/>
       <div className="p-5 flex flex-row flex-wrap justify-between">
         {details.map((info, index) => {
           return <WeatherCard key={index} info={info} />

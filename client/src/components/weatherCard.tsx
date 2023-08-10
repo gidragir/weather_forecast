@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import { InfoModel } from "../models"
+import React, {Component} from "react"
+import {InfoModel} from "../models"
 import "../css/weatherCard.css"
 import {
   sunny,
@@ -11,8 +11,8 @@ import {
   rain_little,
   rain_small,
   rain_medium,
-  rain_high
-} from "../assets/weather_condition_icons" 
+  rain_high,
+} from "../assets/weather_condition_icons"
 
 let days = [
   "Воскресенье",
@@ -133,7 +133,8 @@ export class WeatherCard extends Component<{info: InfoModel}> {
 
     return (
       <div className="card">
-        <h4 className="text-2xl">{days[day.getDay()]}</h4>
+        <h4 className="text-2xl font-bold">{days[day.getDay()]}</h4>
+
         <div className="flex space-x-2">
           <img
             src={this.getDaytime(this.props.info.Daytime)}
@@ -141,7 +142,7 @@ export class WeatherCard extends Component<{info: InfoModel}> {
           />
 
           <div className="flex flex-col place-content-around">
-            <h4 className="text-3xl font-bold">
+            <h4 className="text-3xl">
               Температура {this.props.info.Temp}
             </h4>
             <h4 className="text-2xl">
@@ -149,30 +150,27 @@ export class WeatherCard extends Component<{info: InfoModel}> {
             </h4>
           </div>
         </div>
-        <div className="flex place-content-evenly">
-          <div className="card_element">
-            <img
-              src={this.getCloudness(this.props.info.Cloudness)}
-              className="animate-bounce-slow h-20 w-20"
-            />
-            <h5 className="text-lg font-bold">Облачность</h5>
-          </div>
+        <hr className="h-px mt-4 mb-1 bg-gray-200" />
 
-          <div className="card_element">
-            <img
-              src={this.getPrec(this.props.info.Prec_strength)}
-              className="animate-bounce-slow h-20 w-20"
-            />
-            <h5 className="text-lg font-bold">Дождливость</h5>
-          </div>
+        <div className="grid grid-cols-3 gap-4 justify-items-center items-center">
+          <h5 className="text-lg font-bold">Облачность</h5>
+          <h5 className="text-lg font-bold">Дождливость</h5>
+          <h5 className="text-lg font-bold">Погодные условия</h5>
 
-          <div className="card_element">
-            <img
-              src={this.getCondition(this.props.info.Condition)}
-              className="animate-bounce-slow h-20 w-20"
-            />
-            <h5 className="text-lg font-bold">Погодные условия</h5>
-          </div>
+          <img
+            src={this.getCloudness(this.props.info.Cloudness)}
+            className="animate-bounce-slow h-20 w-20"
+          />
+
+          <img
+            src={this.getPrec(this.props.info.Prec_strength)}
+            className="animate-bounce-slow h-20 w-20"
+          />
+
+          <img
+            src={this.getCondition(this.props.info.Condition)}
+            className="animate-bounce-slow h-20 w-20"
+          />
         </div>
       </div>
     )
@@ -180,3 +178,42 @@ export class WeatherCard extends Component<{info: InfoModel}> {
 }
 
 export default WeatherCard
+
+// <h4 className="text-2xl">{days[day.getDay()]}</h4>
+
+// <div className="flex flex-row place-content-around items-start">
+//   <div className="inline-flex flex-col items-start place-content-between">
+//     <img
+//       src={this.getDaytime(this.props.info.Daytime)}
+//       className="animate-pulse-slow h-28 w-28"
+//     />
+
+//     <h4 className="text-3xl font-bold">
+//       Температура {this.props.info.Temp}
+//     </h4>
+//     <h4 className="text-2xl">
+//       Ощущается как {this.props.info.Feels_like}
+//     </h4>
+//   </div>
+
+//   <div className="card_element">
+//     <h5 className="text-lg font-bold">Облачность</h5>
+
+//     <img
+//       src={this.getCloudness(this.props.info.Cloudness)}
+//       className="animate-bounce-slow h-20 w-20"
+//     />
+
+//     <h5 className="text-lg font-bold">Дождливость</h5>
+//     <img
+//       src={this.getPrec(this.props.info.Prec_strength)}
+//       className="animate-bounce-slow h-20 w-20"
+//     />
+
+//     <h5 className="text-lg font-bold">Погодные условия</h5>
+//     <img
+//       src={this.getCondition(this.props.info.Condition)}
+//       className="animate-bounce-slow h-20 w-20"
+//     />
+//   </div>
+// </div>

@@ -8,8 +8,11 @@
   }
 
   .card {
-    @apply bg-slate-50 h-[20rem] w-[31rem] drop-shadow-[0_0_10px_rgba(0,250,154,0.5)];
-    @apply rounded-md p-2 m-2 inline-flex flex-col place-content-around;   
+    @apply bg-slate-50 h-[22rem] w-[31rem] drop-shadow-[0_0_10px_rgba(0,250,154,0.5)];
+    @apply rounded-md p-2 m-5 inline-flex flex-col place-content-around;
+    
+    /*@apply bg-slate-50 h-[27rem] w-[26rem] drop-shadow-[0_0_10px_rgba(0,250,154,0.5)];
+    @apply rounded-md p-2 m-5;   */
   }
 
   .card_element {
