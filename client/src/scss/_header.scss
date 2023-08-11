@@ -8,8 +8,4 @@
     @apply sticky flex items-center justify-between;
     @apply transition-all duration-300;
   }
-
-  .header:hover {
-    @apply top-0;
-  }
 }

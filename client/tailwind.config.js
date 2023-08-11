@@ -30,5 +30,9 @@ export default {
     },
   },
   plugins: [],
+  // purge: {
+  //   enanbled: true,
+  //   content
+  // }
 }
 

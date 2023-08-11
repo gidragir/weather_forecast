@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import Layout from './components/layout/layout.tsx'
-import './css/index.css'
+import './scss/_index.scss'
 import { ApolloClient, InMemoryCache, ApolloProvider, gql, HttpLink } from '@apollo/client';
 
 const client = new ApolloClient({

@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react"
-import "../../css/header.css"
+import {useState, useEffect} from "react"
 import {useQuery, gql} from "@apollo/client"
+import "../../scss/_header.scss"
 
 export default function header() {
   const {loading, error, data} = useQuery(
@@ -37,7 +37,7 @@ export default function header() {
   const cities: any[] = data.cities
   return (
     <header
-      className={`${scrollDirection === "down" ? "-top-10" : "top-0"} header`}
+      className={`${scrollDirection === "down" ? "-top-10" : "top-0"} header hover:top-0`}
     >
       <nav>
         <select

@@ -1,8 +1,7 @@
-import {useState, useEffect} from "react"
 import WeatherCard from "./components/weatherCard"
-import {InfoModel} from "./models"
-import "./css/App.css"
 import {useQuery, gql} from "@apollo/client"
+import {Forecast} from "./models"
+import "./scss/_app.scss"
 
 function App() {
   const ForecastFields = gql`
@@ -47,15 +46,15 @@ function App() {
     )
   if (error) return <p>Error : {error.message}</p>
 
-  const details: InfoModel[] = data.forecast.Details as InfoModel[]
+  const details: Forecast[] = data.forecast.Details as Forecast[]
 
   return (
     <>
-      <WeatherCard info={data.forecast} />
+      <WeatherCard forecast={data.forecast} />
       <br />
       <div className="p-5 flex flex-row flex-wrap justify-between">
         {details.map((info, index) => {
-          return <WeatherCard key={index} info={info} />
+          return <WeatherCard key={index} forecast={info} />
         })}
       </div>
     </>

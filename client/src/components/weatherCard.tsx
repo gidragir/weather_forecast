@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import { InfoModel } from "../models"
-import "../css/weatherCard.css"
+import {Forecast} from "../models"
+import "../scss/_weatherCard.scss"
 import {
   sunny,
   moon,
@@ -23,7 +23,7 @@ let days = [
   "Пятница",
   "Суббота",
 ]
-export class WeatherCard extends Component<{info: InfoModel}> {
+export class WeatherCard extends Component<{forecast: Forecast}> {
   getCondition(condition: string): string {
     let weatherSrc: string
     switch (condition) {
@@ -129,7 +129,7 @@ export class WeatherCard extends Component<{info: InfoModel}> {
   }
 
   render() {
-    let day: Date = new Date(this.props.info.Day)
+    let day: Date = new Date(this.props.forecast.Day)
 
     return (
       <div className="card">
@@ -137,16 +137,16 @@ export class WeatherCard extends Component<{info: InfoModel}> {
 
         <div className="flex space-x-2">
           <img
-            src={this.getDaytime(this.props.info.Daytime)}
+            src={this.getDaytime(this.props.forecast.Daytime)}
             className="animate-pulse-slow h-28 w-28"
           />
 
           <div className="flex flex-col place-content-around">
             <h4 className="text-3xl">
-              Температура {this.props.info.Temp}
+              Температура {this.props.forecast.Temp}
             </h4>
             <h4 className="text-2xl">
-              Ощущается как {this.props.info.Feels_like}
+              Ощущается как {this.props.forecast.Feels_like}
             </h4>
           </div>
         </div>
@@ -158,17 +158,17 @@ export class WeatherCard extends Component<{info: InfoModel}> {
           <h5 className="text-lg font-bold">Погодные условия</h5>
 
           <img
-            src={this.getCloudness(this.props.info.Cloudness)}
+            src={this.getCloudness(this.props.forecast.Cloudness)}
             className="animate-bounce-slow h-20 w-20"
           />
 
           <img
-            src={this.getPrec(this.props.info.Prec_strength)}
+            src={this.getPrec(this.props.forecast.Prec_strength)}
             className="animate-bounce-slow h-20 w-20"
           />
 
           <img
-            src={this.getCondition(this.props.info.Condition)}
+            src={this.getCondition(this.props.forecast.Condition)}
             className="animate-bounce-slow h-20 w-20"
           />
         </div>
