@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .header {
+    @apply top-0 w-full py-2 z-50 bg-white shadow-lg;
+    @apply sticky flex items-center justify-between;
+    @apply transition-all duration-300;
+  }
+
+  .header:hover {
+    @apply top-0;
+  }
+}

@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-import './index.css'
+import Layout from './components/layout/layout.tsx'
+import './css/index.css'
 import { ApolloClient, InMemoryCache, ApolloProvider, gql, HttpLink } from '@apollo/client';
 
 const client = new ApolloClient({
@@ -16,6 +17,8 @@ const client = new ApolloClient({
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ApolloProvider client={ client }>
-    <App />
+    <Layout>
+      <App />
+    </Layout>
   </ApolloProvider>,
 )

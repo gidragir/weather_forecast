@@ -1,5 +1,5 @@
-import React, {Component} from "react"
-import {InfoModel} from "../models"
+import React, { Component } from "react"
+import { InfoModel } from "../models"
 import "../css/weatherCard.css"
 import {
   sunny,
