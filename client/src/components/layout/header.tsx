@@ -14,19 +14,22 @@ export default function header() {
     `
   )
 
-  const [cityId, setCityId] = useState("")    
+  const [cityId, setCityId] = useState("")
 
   const scrollDirection = useScrollDirection()
 
   if (loading)
     return (
       <header
-        className={`${scrollDirection === "down" ? "-top-10" : "top-0"} header`}
+        className={
+          `${scrollDirection === "down" ? "-top-10 hover:top-0" : "top-0"} 
+          header`
+        }
       >
         <nav>
           <select
             title="Город"
-            className="font-['segoe_print'] rounded-md w-40 p-1 ml-1"
+            className="font-['segoe_print'] rounded-md w-56 mt-1 ml-2"
           >
             <option>Loading...</option>
           </select>
@@ -37,16 +40,21 @@ export default function header() {
   const cities: any[] = data.cities
   return (
     <header
-      className={`${scrollDirection === "down" ? "-top-10" : "top-0"} header hover:top-0`}
+      className={
+        `${scrollDirection === "down" ? "-top-10 hover:top-0" : "top-0"} 
+        header`
+      }
     >
       <nav>
         <select
           defaultValue=""
           title="Город"
-          className="font-['segoe_print'] rounded-md w-40 p-1 ml-1"
+          className="font-['segoe_print'] rounded-md w-56 mt-1 ml-2"
           onChange={(e) => setCityId(e.target.value)}
         >
-          <option hidden value="">Выбрать город</option>
+          <option hidden value="">
+            Выбрать город
+          </option>
           {cities.map((item, index) => {
             return (
               <option
@@ -73,12 +81,12 @@ function useScrollDirection() {
     const updateScrollDirection = () => {
       const scrollY = window.scrollY
       const direction = scrollY > lastScrollY ? "down" : "up"
-      if (
-        direction !== scrollDirection &&
-        (scrollY - lastScrollY > 10 || scrollY - lastScrollY < -10)
-      ) {
-        setScrollDirection(direction)
-      }
+      // if (
+      //   direction !== scrollDirection &&
+      //   (scrollY - lastScrollY > 10 || scrollY - lastScrollY < -10)
+      // ) {
+      setScrollDirection(direction)
+      // }
       lastScrollY = scrollY == 0 ? scrollY : 0
     }
     window.addEventListener("scroll", updateScrollDirection)
