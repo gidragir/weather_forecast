@@ -110,49 +110,66 @@ export class WeatherCard extends Component<{forecast: Forecast}> {
     return cloudnessSrc
   }
 
-  getDaytime(daytime: string): string {
+  getDaytime(daytime: number): string {
+    
+    // switch (daytime) {
+    //   case "d":
+    //     daytimeSrc = sunny
+    //     break
+
+    //   case "n":
+    //     daytimeSrc = moon
+    //     break
+
+    //   default:
+    //     daytimeSrc = ""
+    //     break
+    // }
+
     let daytimeSrc: string
-    switch (daytime) {
-      case "d":
-        daytimeSrc = sunny
-        break
-
-      case "n":
-        daytimeSrc = moon
-        break
-
-      default:
-        daytimeSrc = ""
-        break
+    if (daytime > 0 && daytime < 0.25) {
+      daytimeSrc = rain_little  
+    }
+    else if (daytime > 0.25 && daytime < 0.5) {
+      daytimeSrc = rain_small  
+    }
+    else if (daytime > 0.5 && daytime < 0.75) {
+      daytimeSrc = rain_medium  
+    }
+    else if (daytime > 0.75) {
+      daytimeSrc = rain_high  
+    } else {
+      daytimeSrc = sunny
     }
     return daytimeSrc
   }
 
   render() {
     let day: Date = new Date(this.props.forecast.Day)
+    let info = this.props.forecast.info[0]
 
     return (
       <div className="card">
         <h4 className="text-2xl font-bold">{days[day.getDay()]}</h4>
 
-        <div className="flex space-x-2">
+        <div className="flex space-x-6 ml-3">
           <img
-            src={this.getDaytime(this.props.forecast.Daytime)}
+            src={this.getDaytime(info.avg.Prec_strength)}
             className="animate-pulse-slow h-28 w-28"
           />
 
           <div className="flex flex-col place-content-around">
             <h4 className="text-3xl">
-              Температура {this.props.forecast.Temp}
+              Температура {info.max.Temp} - {info.min.Temp}
             </h4>
             <h4 className="text-2xl">
-              Ощущается как {this.props.forecast.Feels_like}
+              Ощущается как {info.max.Feels_like} - {info.min.Feels_like}
             </h4>
           </div>
         </div>
         <hr className="h-px mt-4 mb-1 bg-gray-200" />
 
-        <div className="grid grid-cols-3 gap-4 justify-items-center items-center">
+        {/* <div className="grid grid-cols-3 gap-4 justify-items-center items-center">
           <h5 className="text-lg font-bold">Облачность</h5>
           <h5 className="text-lg font-bold">Дождливость</h5>
           <h5 className="text-lg font-bold">Погодные условия</h5>
@@ -171,7 +188,7 @@ export class WeatherCard extends Component<{forecast: Forecast}> {
             src={this.getCondition(this.props.forecast.Condition)}
             className="animate-bounce-slow h-20 w-20"
           />
-        </div>
+        </div> */}
       </div>
     )
   }

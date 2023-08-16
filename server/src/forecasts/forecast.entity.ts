@@ -49,6 +49,72 @@ export class Forecast {
   Prec_strength: number
 }
 
+@ObjectType()
+export class ForecastAggregate {
+
+  @Field(() => Float, {
+    nullable: true
+  })
+  Temp: number | null;
+
+  @Field(() => Float, {
+    nullable: true
+  })
+  Feels_like: number | null;
+
+  @Field(() => Float, {
+    nullable: true
+  })
+  Cloudness: number | null;
+
+  @Field(() => Float, {
+    nullable: true
+  })
+  Prec_strength: number | null;
+}
+
+@ObjectType()
+export class ForecastGroupBy {
+
+  @Field(() => Date, {
+    nullable: true
+  })
+  Day: Date
+
+  @Field({
+    nullable: true
+  })
+  Hour: number
+
+  City?: City
+
+  @Field(() => Int, {
+    nullable: true
+  })
+  CityId: number
+
+  @Field({
+    nullable: true
+  }) 
+  Daytime: string
+
+  @Field(() => ForecastAggregate, {
+    nullable: true
+  })
+  _max: ForecastAggregate | null;
+
+  @Field(() => ForecastAggregate, {
+    nullable: true
+  })
+  _min: ForecastAggregate | null;
+
+  @Field(() => ForecastAggregate, {
+    nullable: true
+  })
+  _avg: ForecastAggregate | null;
+
+}
+
 @InputType()
 export class CreateForecast {
   @Field(() => Date)

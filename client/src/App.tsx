@@ -4,8 +4,8 @@ import {Forecast} from "./models"
 import "./scss/_app.scss"
 
 function App() {
-  const ForecastFields = gql`
-    fragment ForecastFields on Forecast {
+  const HourFields = gql`
+    fragment HourFields on Forecast {
       Day
       Temp
       Feels_like
@@ -14,6 +14,29 @@ function App() {
       Cloudness
       Condition {
         Name
+      }
+    }
+  `
+  const ForecastFields = gql`
+    ${HourFields}
+    fragment ForecastFields on Forecast {
+      Day
+      info: forecastGroupBy{
+        Day
+        max: _max{
+          Temp
+          Feels_like
+        }
+        min: _min{
+          Temp
+          Feels_like
+        }
+        avg: _avg{
+          Prec_strength
+        }
+      }
+      Hours{
+        ...HourFields
       }
     }
   `
