@@ -24,6 +24,7 @@ let days = [
   "Суббота",
 ]
 export class WeatherCard extends Component<{forecast: Forecast}> {
+  //#region misc
   getCondition(condition: string): string {
     let weatherSrc: string
     switch (condition) {
@@ -82,67 +83,44 @@ export class WeatherCard extends Component<{forecast: Forecast}> {
 
   getCloudness(cloudness: number): string {
     let cloudnessSrc: string
-    switch (cloudness) {
-      case 0:
-        cloudnessSrc = sunny
-        break
-
-      case 0.25:
-        cloudnessSrc = cloudy_little
-        break
-
-      case 0.5:
-        cloudnessSrc = cloudy_small
-        break
-
-      case 0.75:
-        cloudnessSrc = cloudy_small
-        break
-
-      case 1:
-        cloudnessSrc = cloudy_high
-        break
-
-      default:
-        cloudnessSrc = ""
-        break
+    if (cloudness > 0 && cloudness <= 0.25) {
+      cloudnessSrc = cloudy_small  
     }
+    else if (cloudness > 0.25 && cloudness <= 0.5) {
+      cloudnessSrc = cloudy_little  
+    }
+    else if (cloudness > 0.5 && cloudness <= 0.75) {
+      cloudnessSrc = cloudy_little  
+    }
+    else if (cloudness > 0.75) {
+      cloudnessSrc = cloudy_high  
+    } else {
+      cloudnessSrc = sunny
+    }
+    
     return cloudnessSrc
   }
 
-  getDaytime(daytime: number): string {
-    
-    // switch (daytime) {
-    //   case "d":
-    //     daytimeSrc = sunny
-    //     break
+  getMainIcon(prec_strength: number): string {
 
-    //   case "n":
-    //     daytimeSrc = moon
-    //     break
-
-    //   default:
-    //     daytimeSrc = ""
-    //     break
-    // }
-
-    let daytimeSrc: string
-    if (daytime > 0 && daytime < 0.25) {
-      daytimeSrc = rain_little  
+    let mainIconSrc: string
+    if (prec_strength > 0 && prec_strength <= 0.25) {
+      mainIconSrc = rain_little  
     }
-    else if (daytime > 0.25 && daytime < 0.5) {
-      daytimeSrc = rain_small  
+    else if (prec_strength > 0.25 && prec_strength <= 0.5) {
+      mainIconSrc = rain_small  
     }
-    else if (daytime > 0.5 && daytime < 0.75) {
-      daytimeSrc = rain_medium  
+    else if (prec_strength > 0.5 && prec_strength <= 0.75) {
+      mainIconSrc = rain_medium  
     }
-    else if (daytime > 0.75) {
-      daytimeSrc = rain_high  
+    else if (prec_strength > 0.75) {
+      mainIconSrc = rain_high  
     } else {
-      daytimeSrc = sunny
+      mainIconSrc = sunny
     }
-    return daytimeSrc
+    return mainIconSrc
   }
+  //#endregion
 
   render() {
     let day: Date = new Date(this.props.forecast.Day)
@@ -154,41 +132,35 @@ export class WeatherCard extends Component<{forecast: Forecast}> {
 
         <div className="flex space-x-6 ml-3">
           <img
-            src={this.getDaytime(info.avg.Prec_strength)}
+            src={this.getMainIcon(info.avg.Prec_strength)}
             className="animate-pulse-slow h-28 w-28"
           />
 
           <div className="flex flex-col place-content-around">
             <h4 className="text-3xl">
-              Температура {info.max.Temp} - {info.min.Temp}
+              Температура {info.max.Temp}/{info.min.Temp}
             </h4>
             <h4 className="text-2xl">
-              Ощущается как {info.max.Feels_like} - {info.min.Feels_like}
+              Ощущается как {info.max.Feels_like}/{info.min.Feels_like}
             </h4>
           </div>
         </div>
         <hr className="h-px mt-4 mb-1 bg-gray-200" />
 
-        {/* <div className="grid grid-cols-3 gap-4 justify-items-center items-center">
+        <div className="flex flex-col justify-items-center items-center">
           <h5 className="text-lg font-bold">Облачность</h5>
-          <h5 className="text-lg font-bold">Дождливость</h5>
-          <h5 className="text-lg font-bold">Погодные условия</h5>
+          {/* <h5 className="text-lg font-bold">Погодные условия</h5> */}
 
           <img
-            src={this.getCloudness(this.props.forecast.Cloudness)}
+            src={this.getCloudness(info.avg.Cloudness)}
             className="animate-bounce-slow h-20 w-20"
           />
 
-          <img
-            src={this.getPrec(this.props.forecast.Prec_strength)}
-            className="animate-bounce-slow h-20 w-20"
-          />
-
-          <img
+          {/* <img
             src={this.getCondition(this.props.forecast.Condition)}
             className="animate-bounce-slow h-20 w-20"
-          />
-        </div> */}
+          /> */}
+        </div>
       </div>
     )
   }
@@ -201,7 +173,7 @@ export default WeatherCard
 // <div className="flex flex-row place-content-around items-start">
 //   <div className="inline-flex flex-col items-start place-content-between">
 //     <img
-//       src={this.getDaytime(this.props.info.Daytime)}
+//       src={this.getMainIcon(this.props.info.Daytime)}
 //       className="animate-pulse-slow h-28 w-28"
 //     />
 

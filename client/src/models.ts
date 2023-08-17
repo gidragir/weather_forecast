@@ -12,6 +12,7 @@ export interface Forecast {
     }
     avg:{
       Prec_strength: number
+      Cloudness: number
     }
   }[]
   Hours:{

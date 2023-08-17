@@ -3,56 +3,8 @@ import {useQuery, gql} from "@apollo/client"
 import {Forecast} from "./models"
 import "./scss/_app.scss"
 
-function App() {
-  const HourFields = gql`
-    fragment HourFields on Forecast {
-      Day
-      Temp
-      Feels_like
-      Prec_strength
-      Daytime
-      Cloudness
-      Condition {
-        Name
-      }
-    }
-  `
-  const ForecastFields = gql`
-    ${HourFields}
-    fragment ForecastFields on Forecast {
-      Day
-      info: forecastGroupBy{
-        Day
-        max: _max{
-          Temp
-          Feels_like
-        }
-        min: _min{
-          Temp
-          Feels_like
-        }
-        avg: _avg{
-          Prec_strength
-        }
-      }
-      Hours{
-        ...HourFields
-      }
-    }
-  `
-  const {loading, error, data} = useQuery(
-    gql`
-      ${ForecastFields}
-      {
-        forecast(where: {Day: {equals: "2023-08-01"}}) {
-          ...ForecastFields
-          Details(where: {Day: {gt: "2023-08-01"}}, orderBy: {Day: asc}) {
-            ...ForecastFields
-          }
-        }
-      }
-    `
-  )
+export default function App() {
+  const {loading, error, data} = useQuery(getForecast)
 
   if (loading)
     return (
@@ -72,16 +24,55 @@ function App() {
   const details: Forecast[] = data.forecast.Details as Forecast[]
 
   return (
-    <>
+    <div className="pt-5">
       <WeatherCard forecast={data.forecast} />
       <br />
-      <div className="p-5 flex flex-row flex-wrap justify-between">
+      <div className="pt-10 px-14 gap-8 flex flex-row flex-wrap justify-between">
         {details.map((info, index) => {
           return <WeatherCard key={index} forecast={info} />
         })}
       </div>
-    </>
+    </div>
   )
 }
 
-export default App
+
+const getForecast = gql`
+  fragment ForecastFields on Forecast {
+    Day
+    info: forecastGroupBy{
+      Day
+      max: _max{
+        Temp
+        Feels_like
+      }
+      min: _min{
+        Temp
+        Feels_like
+      }
+      avg: _avg{
+        Prec_strength
+        Cloudness
+      }
+    }
+    Hours{
+      Day
+      Temp
+      Feels_like
+      Prec_strength
+      Daytime
+      Cloudness
+      Condition {
+        Name
+      }
+    }
+  }
+  {
+    forecast(where: {Day: {equals: "2023-08-01"}}) {
+      ...ForecastFields
+      Details(where: {Day: {gt: "2023-08-01"}}, orderBy: {Day: asc}) {
+        ...ForecastFields
+      }
+    }
+  }
+`
