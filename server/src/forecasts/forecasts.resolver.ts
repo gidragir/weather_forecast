@@ -1,12 +1,12 @@
 import { Resolver, ResolveField, Root, Query, Mutation, Args, Info } from '@nestjs/graphql'
+import type { GraphQLResolveInfo } from "graphql"
+import graphqlFields = require('graphql-fields')
 import { Forecast, CreateForecast, City, WeatherCondition, ForecastGroupBy } from './forecast.entity'
 import { ForecastWhereInput, ForecastUpdateInput, ForecastWhereUniqueInput } from '../etc/inputs'
 import { ForecastOrderByWithAggregationInput } from '../etc/orders'
 import { ForecastScalarFieldEnum } from '../etc/fieldEnums'
 import { PrismaService } from '../prisma.service'
 import { assembleStruct } from '../misc'
-import type { GraphQLResolveInfo } from "graphql"
-import graphqlFields = require('graphql-fields')
 
 @Resolver(() => Forecast)
 export class ForecastsResolver {
@@ -78,6 +78,25 @@ export class ForecastsResolver {
         processArguments: true,
       }
     )
+    const transformFields = (fields: Record<string, any>): Record<string, any> => {
+      return Object.fromEntries(
+        Object.entries(fields)
+          .map<[string, any]>(([key, value]) => {
+            if (Object.keys(value).length === 0) {
+              return [key, true]
+            }
+            if ("__arguments" in value) {
+              return [key, Object.fromEntries(
+                value.__arguments.map((argument: object) => {
+                  const [[key, { value }]] = Object.entries(argument)
+                  return [key, value]
+                })
+              )]
+            }
+            return [key, transformFields(value)]
+          }),
+      )
+    }
     const { _count, _avg, _sum, _min, _max } = transformFields(fields)
     const keys: string[] = Object.keys(fields)
     const by: Array<ForecastScalarFieldEnum> = new Array<ForecastScalarFieldEnum>
@@ -89,7 +108,7 @@ export class ForecastsResolver {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return await this.prismaService.forecast.groupBy({
-      by: by, where:{ Day: forecast.Day},
+      by: ["Day"], where:{ Day: forecast.Day},
       ...Object.fromEntries(
         Object.entries({ _count, _avg, _sum, _min, _max }).filter(([_, v]) => v != null)
       )
@@ -108,27 +127,18 @@ export class ForecastsResolver {
     @Args("orderBy", { nullable: true }) orderBy: ForecastOrderByWithAggregationInput
   ): Promise<Forecast[]> {
     const args = assembleStruct(undefined, where, orderBy)
-    return await this.prismaService.forecast.findMany({ ...args }) as Forecast[]
+    const result = await this.prismaService.forecast.findMany({ ...args }) as Forecast[]
+
+    const days: Date[] = []
+    const filteredResult: Forecast[] = []
+    result.forEach(element => {
+      if (!days.toString().includes(element.Day.toString())) {
+        days.push(element.Day) 
+        filteredResult.push(element)
+      }
+    })
+    
+    return filteredResult
   }
   //#endregion
-}
-
-function transformFields(fields: Record<string, any>): Record<string, any> {
-  return Object.fromEntries(
-    Object.entries(fields)
-      .map<[string, any]>(([key, value]) => {
-        if (Object.keys(value).length === 0) {
-          return [key, true];
-        }
-        if ("__arguments" in value) {
-          return [key, Object.fromEntries(
-            value.__arguments.map((argument: object) => {
-              const [[key, { value }]] = Object.entries(argument);
-              return [key, value];
-            })
-          )];
-        }
-        return [key, transformFields(value)];
-      }),
-  );
 }
