@@ -22,7 +22,9 @@ export interface Forecast {
     Prec_strength: number
     Daytime: string
     Cloudness: number
-    Condition: string
+    Condition: {
+      Name: string
+    }
   }[]
 }
 

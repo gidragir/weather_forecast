@@ -56,6 +56,7 @@ const getForecast = gql`
       }
     }
     Hours{
+      Hour
       Day
       Temp
       Feels_like
